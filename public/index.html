@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Site</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container" id="login-container">
+        <h2>Login</h2>
+        <p class="warning">
+            Warning: This chat application does not track users. Be cautious about sharing personal information. 
+            Potential risks include:
+            <ul>
+                <li>Impersonation: Users can easily impersonate others since there is no authentication.</li>
+                <li>Privacy: Messages are not encrypted, so they can be intercepted by third parties.</li>
+                <li>Data Loss: Messages are not stored securely and can be lost or accessed by unauthorized users.</li>
+                <li>Malicious Links: Be cautious of links shared in the chat, as they could lead to malicious websites.</li>
+            </ul>
+        </p>
+        <input type="text" id="username" placeholder="Enter your username">
+        <button onclick="login()">Login</button>
+    </div>
+    <div class="container" id="chat-container" style="display: none;">
+        <div class="chat-section" id="public-chat" role="region" aria-labelledby="public-chat-title">
+            <h2 id="public-chat-title">Public Chat</h2>
+            <div class="messages" id="public-messages" role="log" aria-live="polite"></div>
+            <div class="input-group">
+                <input type="text" id="public-input" placeholder="Type a message..." aria-label="Public chat input">
+                <button onclick="sendMessage('public')">Send</button>
+                <input type="file" id="public-file" onchange="sendFile('public')" style="display: none;">
+                <button onclick="document.getElementById('public-file').click()">📎</button>
+            </div>
+        </div>
+        <div class="chat-section" id="private-chat" role="region" aria-labelledby="private-chat-title">
+            <h2 id="private-chat-title">Private Chat</h2>
+            <select id="user-select" onchange="switchChat()">
+                <option value="">Select a user</option>
+            </select>
+            <div class="messages" id="private-messages" role="log" aria-live="polite"></div>
+            <div class="input-group">
+                <input type="text" id="private-input" placeholder="Type a message..." aria-label="Private chat input">
+                <button onclick="sendMessage('private')">Send</button>
+                <input type="file" id="private-file" onchange="sendFile('private')" style="display: none;">
+                <button onclick="document.getElementById('private-file').click()">📎</button>
+            </div>
+        </div>
+        <div id="notification" style="display: none;"></div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
